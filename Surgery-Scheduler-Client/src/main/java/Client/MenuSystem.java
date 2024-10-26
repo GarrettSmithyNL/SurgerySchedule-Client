@@ -1,8 +1,21 @@
 package Client;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.keyin.domain.Doctor.Doctor;
+import com.keyin.domain.Hospital.Hospital;
+import com.keyin.domain.Surgery.Surgery;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuSystem {
+
+    private Gson gson = new Gson();
 
     public static void main(String[] args) {
         MenuSystem menu = new MenuSystem();
@@ -53,34 +66,124 @@ public class MenuSystem {
         }
     }
 
-    // Placeholder methods for the menu options.
+    // 1. Method to fetch surgeries by hospital and date
     public void viewSurgeriesByHospitalAndDate() {
-        System.out.println("Surgeries by Hospital and Date feature coming soon...");
-        // Later: Add logic to call API to fetch and display surgeries by hospital and date
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Hospital ID: ");
+        long hospitalId = scanner.nextLong();
+
+        try {
+            String jsonResponse = getApiResponse("/surgery/hospital-surgeries/" + hospitalId);
+            parseAndDisplaySurgeriesByHospitalAndDate(jsonResponse);
+        } catch (Exception e) {
+            System.out.println("Error retrieving surgeries: " + e.getMessage());
+        }
     }
 
+    // 2. Method to fetch hospitals by city
     public void viewHospitalsByProvinceOrCity() {
-        System.out.println("Hospitals by Province/City feature coming soon...");
-        // Later: Add logic to call API to fetch and display hospitals by city or province
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter City: ");
+        String city = scanner.next();
+
+        try {
+            String jsonResponse = getApiResponse("/hospitals/city/" + city);
+            parseAndDisplayHospitalsByCity(jsonResponse);
+        } catch (Exception e) {
+            System.out.println("Error retrieving hospitals by city: " + e.getMessage());
+        }
     }
 
+    // 3. Placeholder for surgeries by doctor
     public void viewSurgeriesByDoctor() {
-        System.out.println("Surgeries by Doctor feature coming soon...");
-        // Later: Add logic to call API to fetch and display surgeries by doctor
+        System.out.println("Feature to view surgeries by doctor is pending setup.");
     }
 
+    // 4. Placeholder for upcoming surgery by patient
     public void viewUpcomingSurgeryForPatient() {
-        System.out.println("Upcoming Surgery for Patient feature coming soon...");
-        // Later: Add logic to call API to fetch and display upcoming surgeries for a patient
+        System.out.println("Feature to view upcoming surgeries by patient is pending setup.");
     }
 
+    // 5. Method to search available doctors by surgery type
     public void searchAvailableDoctors() {
-        System.out.println("Search Available Doctors feature coming soon...");
-        // Later: Add logic to call API to fetch and display available doctors for surgery
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Surgery Type: ");
+        String surgeryType = scanner.next();
+
+        try {
+            String jsonResponse = getApiResponse("/doctors/possible-surgery/" + surgeryType);
+            List<Doctor> availableDoctors = parseJsonResponse(jsonResponse, Doctor.class);
+            displayDoctors(availableDoctors);
+        } catch (Exception e) {
+            System.out.println("Error retrieving available doctors: " + e.getMessage());
+        }
     }
 
+    // 6. Placeholder for searching surgeries by time
     public void searchSurgeriesByTime() {
-        System.out.println("Search Surgeries by Time feature coming soon...");
-        // Later: Add logic to call API to search for surgeries by specific time
+        System.out.println("Feature to search surgeries by time is pending setup.");
+    }
+
+    // Helper method to make an API call
+    public String getApiResponse(String endpoint) throws Exception {
+        String baseUrl = "http://localhost:8080"; // Adjust if needed
+        URL url = new URL(baseUrl + endpoint);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Accept", "application/json");
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+        StringBuilder response = new StringBuilder();
+        String output;
+        while ((output = br.readLine()) != null) {
+            response.append(output);
+        }
+        conn.disconnect();
+        return response.toString();
+    }
+
+    // Generic method to parse JSON into a list of specified type
+    public <T> List<T> parseJsonResponse(String jsonResponse, Class<T> classType) {
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, classType).getType());
+    }
+
+    // Parsing and displaying surgeries by hospital and date
+    private void parseAndDisplaySurgeriesByHospitalAndDate(String jsonResponse) {
+        List<Surgery> surgeries = parseJsonResponse(jsonResponse, Surgery.class);
+        if (surgeries.isEmpty()) {
+            System.out.println("No surgeries found for this hospital.");
+            return;
+        }
+        for (Surgery surgery : surgeries) {
+            System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+        }
+    }
+
+    // Parsing and displaying hospitals by city
+    private void parseAndDisplayHospitalsByCity(String jsonResponse) {
+        List<Hospital> hospitals = parseJsonResponse(jsonResponse, Hospital.class);
+        if (hospitals.isEmpty()) {
+            System.out.println("No hospitals found in this city.");
+            return;
+        }
+        for (Hospital hospital : hospitals) {
+            System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
+        }
+    }
+
+    // Displaying doctor information
+    private void displayDoctors(List<Doctor> doctors) {
+        if (doctors.isEmpty()) {
+            System.out.println("No available doctors for this surgery type.");
+            return;
+        }
+        for (Doctor doctor : doctors) {
+            System.out.println("Doctor ID: " + doctor.getId() + ", Name: " + doctor.getName());
+        }
     }
 }
+
