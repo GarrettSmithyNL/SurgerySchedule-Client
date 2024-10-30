@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class MenuSystem {
 
     private Gson gson = new Gson();
+    private RESTClient restClient = new RESTClient();
 
     public static void main(String[] args) {
         MenuSystem menu = new MenuSystem();
@@ -73,11 +74,20 @@ public class MenuSystem {
         long hospitalId = scanner.nextLong();
 
         try {
-            String jsonResponse = getApiResponse("/surgery/hospital-surgeries/" + hospitalId);
-            parseAndDisplaySurgeriesByHospitalAndDate(jsonResponse);
+            List<Surgery> surgeries = restClient.fetchSurgeriesByHospitalAndDate(hospitalId);
+
+            if (surgeries.isEmpty()) {
+                System.out.println("No surgeries found for this hospital.");
+                return;
+            }
+
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+            }
         } catch (Exception e) {
             System.out.println("Error retrieving surgeries: " + e.getMessage());
         }
+
     }
 
     // 2. Method to fetch hospitals by city
@@ -87,10 +97,18 @@ public class MenuSystem {
         String city = scanner.next();
 
         try {
-            String jsonResponse = getApiResponse("/hospitals/city/" + city);
-            parseAndDisplayHospitalsByCity(jsonResponse);
+            List<Hospital> hospitals = restClient.fetchHospitalsByCity(city);
+
+            if (hospitals.isEmpty()) {
+                System.out.println("No hospitals found in this city.");
+                return;
+            }
+
+            for (Hospital hospital : hospitals) {
+                System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
+            }
         } catch (Exception e) {
-            System.out.println("Error retrieving hospitals by city: " + e.getMessage());
+            System.out.println("Error retrieving hospitals: " + e.getMessage());
         }
     }
 
@@ -185,5 +203,7 @@ public class MenuSystem {
             System.out.println("Doctor ID: " + doctor.getId() + ", Name: " + doctor.getName());
         }
     }
+
+
 }
 
