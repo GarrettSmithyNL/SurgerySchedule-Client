@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class MenuSystem {
 
     private Gson gson = new Gson();
+    private RESTClient restClient = new RESTClient();
 
     public static void main(String[] args) {
         MenuSystem menu = new MenuSystem();
@@ -85,12 +86,17 @@ public class MenuSystem {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter City: ");
         String city = scanner.next();
+        restClient.fetchAndDisplayHospitalsByCity(city, this);
+    }
 
-        try {
-            String jsonResponse = getApiResponse("/hospitals/city/" + city);
-            parseAndDisplayHospitalsByCity(jsonResponse);
-        } catch (Exception e) {
-            System.out.println("Error retrieving hospitals by city: " + e.getMessage());
+
+    public void displayHospitals(List<Hospital> hospitals) {
+        if (hospitals.isEmpty()) {
+            System.out.println("No hospitals found in this city.");
+            return;
+        }
+        for (Hospital hospital : hospitals) {
+            System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
         }
     }
 
@@ -185,5 +191,7 @@ public class MenuSystem {
             System.out.println("Doctor ID: " + doctor.getId() + ", Name: " + doctor.getName());
         }
     }
+
+
 }
 
