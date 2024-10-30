@@ -74,11 +74,20 @@ public class MenuSystem {
         long hospitalId = scanner.nextLong();
 
         try {
-            String jsonResponse = getApiResponse("/surgery/hospital-surgeries/" + hospitalId);
-            parseAndDisplaySurgeriesByHospitalAndDate(jsonResponse);
+            List<Surgery> surgeries = restClient.fetchSurgeriesByHospitalAndDate(hospitalId);
+
+            if (surgeries.isEmpty()) {
+                System.out.println("No surgeries found for this hospital.");
+                return;
+            }
+
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+            }
         } catch (Exception e) {
             System.out.println("Error retrieving surgeries: " + e.getMessage());
         }
+
     }
 
     // 2. Method to fetch hospitals by city
@@ -86,17 +95,20 @@ public class MenuSystem {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter City: ");
         String city = scanner.next();
-        restClient.fetchAndDisplayHospitalsByCity(city, this);
-    }
 
+        try {
+            List<Hospital> hospitals = restClient.fetchHospitalsByCity(city);
 
-    public void displayHospitals(List<Hospital> hospitals) {
-        if (hospitals.isEmpty()) {
-            System.out.println("No hospitals found in this city.");
-            return;
-        }
-        for (Hospital hospital : hospitals) {
-            System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
+            if (hospitals.isEmpty()) {
+                System.out.println("No hospitals found in this city.");
+                return;
+            }
+
+            for (Hospital hospital : hospitals) {
+                System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
+            }
+        } catch (Exception e) {
+            System.out.println("Error retrieving hospitals: " + e.getMessage());
         }
     }
 

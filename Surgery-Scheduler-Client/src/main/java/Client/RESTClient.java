@@ -3,6 +3,7 @@ package Client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.keyin.domain.Hospital.Hospital;
+import com.keyin.domain.Surgery.Surgery;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -35,14 +36,13 @@ public class RESTClient {
         return response.toString();
     }
 
+    public List<Surgery> fetchSurgeriesByHospitalAndDate(long hospitalId) throws Exception {
+        String jsonResponse = get("/surgery/hospital-surgeries/" + hospitalId);
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Surgery.class).getType());
+    }
 
-    public void fetchAndDisplayHospitalsByCity(String city, MenuSystem menuSystem) {
-        try {
-            String jsonResponse = get("/hospitals/city/" + city);
-            List<Hospital> hospitals = gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Hospital.class).getType());
-            menuSystem.displayHospitals(hospitals);
-        } catch (Exception e) {
-            System.out.println("Error retrieving hospitals by city: " + e.getMessage());
-        }
+    public List<Hospital> fetchHospitalsByCity(String city) throws Exception {
+        String jsonResponse = get("/hospitals/city/" + city);
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Hospital.class).getType());
     }
 }
