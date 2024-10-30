@@ -119,13 +119,18 @@ public class MenuSystem {
         long doctorId = scanner.nextLong();
 
         try {
-            String jsonResponse = getApiResponse("/surgeries/doctor/" + doctorId);
-            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+            List<Surgery> surgeries = restClient.fetchSurgeriesByDoctor(doctorId);
+            if (surgeries.isEmpty()) {
+                System.out.println("No surgeries found for this doctor.");
+                return;
+            }
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+            }
         } catch (Exception e) {
             System.out.println("Error retrieving surgeries by doctor: " + e.getMessage());
         }
     }
-
     // 4. Placeholder for upcoming surgery by patient
     public void viewUpcomingSurgeryForPatient() {
         Scanner scanner = new Scanner(System.in);

@@ -45,4 +45,9 @@ public class RESTClient {
         String jsonResponse = get("/hospitals/city/" + city);
         return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Hospital.class).getType());
     }
+
+    public List<Surgery> fetchSurgeriesByDoctor(long doctorId) throws Exception {
+        String jsonResponse = get("/surgery/surgeries/doctor/" + doctorId);
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Surgery.class).getType());
+    }
 }
