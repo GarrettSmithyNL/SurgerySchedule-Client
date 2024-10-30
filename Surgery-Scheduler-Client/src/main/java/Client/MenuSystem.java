@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class MenuSystem {
 
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
     public static void main(String[] args) {
         MenuSystem menu = new MenuSystem();
@@ -38,30 +38,18 @@ public class MenuSystem {
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
-                    viewSurgeriesByHospitalAndDate();
-                    break;
-                case 2:
-                    viewHospitalsByProvinceOrCity();
-                    break;
-                case 3:
-                    viewSurgeriesByDoctor();
-                    break;
-                case 4:
-                    viewUpcomingSurgeryForPatient();
-                    break;
-                case 5:
-                    searchAvailableDoctors();
-                    break;
-                case 6:
-                    searchSurgeriesByTime();
-                    break;
-                case 7:
+                case 1 -> viewSurgeriesByHospitalAndDate();
+                case 2 -> viewHospitalsByProvinceOrCity();
+                case 3 -> viewSurgeriesByDoctor();
+                case 4 -> viewUpcomingSurgeryForPatient();
+                case 5 -> searchAvailableDoctors();
+                case 6 -> searchSurgeriesByTime();
+                case 7 -> {
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
-                default:
-                    System.out.println("Invalid option. Please try again.");
+                }
+                default -> System.out.println("Invalid option. Please try again.");
             }
         }
     }
@@ -74,7 +62,7 @@ public class MenuSystem {
 
         try {
             String jsonResponse = getApiResponse("/surgery/hospital-surgeries/" + hospitalId);
-            parseAndDisplaySurgeriesByHospitalAndDate(jsonResponse);
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
         } catch (Exception e) {
             System.out.println("Error retrieving surgeries: " + e.getMessage());
         }
@@ -94,14 +82,32 @@ public class MenuSystem {
         }
     }
 
-    // 3. Placeholder for surgeries by doctor
+    // 3. Method to fetch surgeries by doctor
     public void viewSurgeriesByDoctor() {
-        System.out.println("Feature to view surgeries by doctor is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Doctor ID: ");
+        long doctorId = scanner.nextLong();
+
+        try {
+            String jsonResponse = getApiResponse("/surgeries/doctor/" + doctorId);
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+        } catch (Exception e) {
+            System.out.println("Error retrieving surgeries by doctor: " + e.getMessage());
+        }
     }
 
-    // 4. Placeholder for upcoming surgery by patient
+    // 4. Method to fetch upcoming surgery by patient
     public void viewUpcomingSurgeryForPatient() {
-        System.out.println("Feature to view upcoming surgeries by patient is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Patient ID: ");
+        long patientId = scanner.nextLong();
+
+        try {
+            String jsonResponse = getApiResponse("/surgeries/patient/" + patientId + "/upcoming");
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+        } catch (Exception e) {
+            System.out.println("Error retrieving upcoming surgery for patient: " + e.getMessage());
+        }
     }
 
     // 5. Method to search available doctors by surgery type
@@ -119,9 +125,20 @@ public class MenuSystem {
         }
     }
 
-    // 6. Placeholder for searching surgeries by time
+    // 6. Method to search surgeries by time
     public void searchSurgeriesByTime() {
-        System.out.println("Feature to search surgeries by time is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Start Time (YYYY-MM-DD HH:MM:SS): ");
+        String startTime = scanner.next();
+        System.out.print("Enter End Time (YYYY-MM-DD HH:MM:SS): ");
+        String endTime = scanner.next();
+
+        try {
+            String jsonResponse = getApiResponse("/surgeries/time?start=" + startTime + "&end=" + endTime);
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+        } catch (Exception e) {
+            System.out.println("Error retrieving surgeries by time: " + e.getMessage());
+        }
     }
 
     // Helper method to make an API call
@@ -151,11 +168,11 @@ public class MenuSystem {
         return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, classType).getType());
     }
 
-    // Parsing and displaying surgeries by hospital and date
-    private void parseAndDisplaySurgeriesByHospitalAndDate(String jsonResponse) {
+    // Parsing and displaying surgeries
+    private void parseAndDisplaySurgeries(String jsonResponse) {
         List<Surgery> surgeries = parseJsonResponse(jsonResponse, Surgery.class);
         if (surgeries.isEmpty()) {
-            System.out.println("No surgeries found for this hospital.");
+            System.out.println("No surgeries found.");
             return;
         }
         for (Surgery surgery : surgeries) {
@@ -186,4 +203,6 @@ public class MenuSystem {
         }
     }
 }
+
+
 
