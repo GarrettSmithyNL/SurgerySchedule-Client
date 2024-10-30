@@ -114,12 +114,30 @@ public class MenuSystem {
 
     // 3. Placeholder for surgeries by doctor
     public void viewSurgeriesByDoctor() {
-        System.out.println("Feature to view surgeries by doctor is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Doctor ID: ");
+        long doctorId = scanner.nextLong();
+
+        try {
+            String jsonResponse = getApiResponse("/surgeries/doctor/" + doctorId);
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+        } catch (Exception e) {
+            System.out.println("Error retrieving surgeries by doctor: " + e.getMessage());
+        }
     }
 
     // 4. Placeholder for upcoming surgery by patient
     public void viewUpcomingSurgeryForPatient() {
-        System.out.println("Feature to view upcoming surgeries by patient is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Patient ID: ");
+        long patientId = scanner.nextLong();
+
+        try {
+            String jsonResponse = getApiResponse("/surgeries/patient/" + patientId + "/upcoming");
+            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+        } catch (Exception e) {
+            System.out.println("Error retrieving upcoming surgery for patient: " + e.getMessage());
+        }
     }
 
     // 5. Method to search available doctors by surgery type
@@ -169,11 +187,11 @@ public class MenuSystem {
         return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, classType).getType());
     }
 
-    // Parsing and displaying surgeries by hospital and date
-    private void parseAndDisplaySurgeriesByHospitalAndDate(String jsonResponse) {
+    // Parsing and displaying surgeries
+    private void parseAndDisplaySurgeries(String jsonResponse) {
         List<Surgery> surgeries = parseJsonResponse(jsonResponse, Surgery.class);
         if (surgeries.isEmpty()) {
-            System.out.println("No surgeries found for this hospital.");
+            System.out.println("No surgeries found.");
             return;
         }
         for (Surgery surgery : surgeries) {
