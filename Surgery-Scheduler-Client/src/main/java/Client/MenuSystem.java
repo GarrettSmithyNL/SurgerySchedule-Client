@@ -120,6 +120,7 @@ public class MenuSystem {
 
         try {
             List<Surgery> surgeries = restClient.fetchSurgeriesByDoctor(doctorId);
+
             if (surgeries.isEmpty()) {
                 System.out.println("No surgeries found for this doctor.");
                 return;
@@ -139,6 +140,7 @@ public class MenuSystem {
 
         try {
             List<Surgery> surgeries = restClient.fetchUpcomingSurgeryForPatient(patientId);
+
             if (surgeries.isEmpty()) {
                 System.out.println("No upcoming surgeries found for this patient.");
                 return;
@@ -157,8 +159,7 @@ public class MenuSystem {
         String surgeryType = scanner.next();
 
         try {
-            String jsonResponse = getApiResponse("/doctors/possible-surgery/" + surgeryType);
-            List<Doctor> availableDoctors = parseJsonResponse(jsonResponse, Doctor.class);
+            List<Doctor> availableDoctors = restClient.fetchAvailableDoctors(surgeryType);
             displayDoctors(availableDoctors);
         } catch (Exception e) {
             System.out.println("Error retrieving available doctors: " + e.getMessage());
