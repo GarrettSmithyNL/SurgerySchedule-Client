@@ -61,4 +61,9 @@ public class RESTClient {
         String jsonResponse = get("/doctors/possible-surgery/" + surgeryType);
         return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Doctor.class).getType());
     }
+
+    public List<Surgery> fetchSurgeriesByDate(String date) throws Exception {
+        String jsonResponse = get("/surgery/search/date/" + date);
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Surgery.class).getType());
+    }
 }
