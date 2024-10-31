@@ -168,12 +168,27 @@ public class MenuSystem {
 
     // 6. Placeholder for searching surgeries by time
     public void searchSurgeriesByTime() {
-        System.out.println("Feature to search surgeries by time is pending setup.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Date (YYYY-MM-DD): ");
+        String date = scanner.next();
+
+        try {
+            List<Surgery> surgeries = restClient.fetchSurgeriesByDate(date);
+            if (surgeries.isEmpty()) {
+                System.out.println("No surgeries found for this date.");
+                return;
+            }
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+            }
+        } catch (Exception e) {
+            System.out.println("Error retrieving surgeries by date: " + e.getMessage());
+        }
     }
 
     // Helper method to make an API call
     public String getApiResponse(String endpoint) throws Exception {
-        String baseUrl = "http://localhost:8080"; // Adjust if needed
+        String baseUrl = "http://localhost:8080";
         URL url = new URL(baseUrl + endpoint);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
