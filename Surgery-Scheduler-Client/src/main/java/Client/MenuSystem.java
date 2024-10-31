@@ -138,8 +138,13 @@ public class MenuSystem {
         long patientId = scanner.nextLong();
 
         try {
-            String jsonResponse = getApiResponse("/surgeries/patient/" + patientId + "/upcoming");
-            parseAndDisplaySurgeries(jsonResponse);  // Consolidated method call
+            List<Surgery> surgeries = restClient.fetchUpcomingSurgeryForPatient(patientId);
+            if (surgeries.isEmpty()) {
+                System.out.println("No upcoming surgeries found for this patient.");
+                return;
+            }
+            String jsonResponse = getApiResponse("/surgery/surgeries/patient/" + patientId + "/upcoming");
+            parseAndDisplaySurgeries(jsonResponse);
         } catch (Exception e) {
             System.out.println("Error retrieving upcoming surgery for patient: " + e.getMessage());
         }
