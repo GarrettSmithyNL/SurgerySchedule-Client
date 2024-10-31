@@ -2,6 +2,7 @@ package Client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.keyin.domain.Doctor.Doctor;
 import com.keyin.domain.Hospital.Hospital;
 import com.keyin.domain.Surgery.Surgery;
 
@@ -54,5 +55,10 @@ public class RESTClient {
     public List<Surgery> fetchUpcomingSurgeryForPatient(long patientId) throws Exception {
         String jsonResponse = get("/surgery/surgeries/patient/" + patientId + "/upcoming");
         return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Surgery.class).getType());
+    }
+
+    public List<Doctor> fetchAvailableDoctors(String surgeryType) throws Exception {
+        String jsonResponse = get("/doctors/possible-surgery/" + surgeryType);
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, Doctor.class).getType());
     }
 }
