@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Dr. Alice Johnson",
+    "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
+  },
+  {
+    "name": "Dr. Benjamin Lee",
+    "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
+  },
+  {
+    "name": "Dr. Charlotte Miller",
+    "listOfPossibleSurgeries": ["CESAREAN_SECTION", "TONSILLECTOMY", "KNEE_REPLACEMENT"]
+  },
+  {
+    "name": "Dr. David Kim",
+    "listOfPossibleSurgeries": ["HIP_REPLACEMENT", "CORONARY_ARTERY_BYPASS_GRAFT", "ANGIOPLASTY"]
+  },
+  {
+    "name": "Dr. Emily Davis",
+    "listOfPossibleSurgeries": ["MASTECTOMY", "LUMPECTOMY", "PROSTATECTOMY"]
+  },
+  {
+    "name": "Dr. Frank Wilson",
+    "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
+  },
+  {
+    "name": "Dr. Grace Taylor",
+    "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
+  }
+]

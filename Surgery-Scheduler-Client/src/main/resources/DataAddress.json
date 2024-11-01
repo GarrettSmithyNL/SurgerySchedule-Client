@@ -1,0 +1,62 @@
+[
+  {
+    "houseNumber": 123,
+    "street": "Main Street",
+    "city": "Anytown",
+    "postalCode": "A1B 2C3"
+  },
+  {
+    "houseNumber": 456,
+    "street": "Elm Street",
+    "city": "Smallville",
+    "postalCode": "B4C 5D6"
+  },
+  {
+    "houseNumber": 789,
+    "street": "Oak Avenue",
+    "city": "Big City",
+    "postalCode": "C7D 8E9"
+  },
+  {
+    "houseNumber": 101,
+    "street": "Pine Road",
+    "city": "Quietville",
+    "postalCode": "F2G 3H4"
+  },
+  {
+    "houseNumber": 222,
+    "street": "Maple Lane",
+    "city": "Happyville",
+    "postalCode": "J5K 6L7"
+  },
+  {
+    "houseNumber": 333,
+    "street": "Cedar Drive",
+    "city": "Sunnydale",
+    "postalCode": "M8N 9P0"
+  },
+  {
+    "houseNumber": 444,
+    "street": "Willow Creek",
+    "city": "Dreamland",
+    "postalCode": "Q1R 2S3"
+  },
+  {
+    "houseNumber": 555,
+    "street": "Spruce Boulevard",
+    "city": "Wonderland",
+    "postalCode": "T6U 7V8"
+  },
+  {
+    "houseNumber": 666,
+    "street": "Fir Street",
+    "city": "Neverland",
+    "postalCode": "X9Y 0Z1"
+  },
+  {
+    "houseNumber": 777,
+    "street": "Hemlock Lane",
+    "city": "Fairyland",
+    "postalCode": "Z2A 3B4"
+  }
+]
