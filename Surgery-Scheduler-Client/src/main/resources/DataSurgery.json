@@ -1,0 +1,190 @@
+[
+  {
+    "doctor": {
+      "name": "Dr. Alice Johnson",
+      "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
+    },
+    "patient": {
+      "mcpNumber": "123456789",
+      "name": "John Doe",
+      "address": {
+        "houseNumber": 123,
+        "street": "Main Street",
+        "city": "Anytown",
+        "postalCode": "A1B 2C3"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 55,
+        "street": "Elm Street",
+        "city": "Springfield",
+        "postalCode": "12345"
+      },
+      "name": "General Hospital",
+      "listOfSurgeriesThatCanBeDone": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR", "APPENDECTOMY"]
+    },
+    "timeStart": "2023-11-01T08:00:00Z",
+    "timeEnd": "2023-11-01T12:00:00Z",
+    "durationOfSurgery": 240,
+    "surgeryType": "CATARACT"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Benjamin Lee",
+      "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
+    },
+    "patient": {
+      "mcpNumber": "234567890",
+      "name": "Jane Smith",
+      "address": {
+        "houseNumber": 456,
+        "street": "Elm Street",
+        "city": "Smallville",
+        "postalCode": "B4C 5D6"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 101,
+        "street": "Maple Avenue",
+        "city": "Shelbyville",
+        "postalCode": "67890"
+      },
+      "name": "City Hospital",
+      "listOfSurgeriesThatCanBeDone": ["HYSTERECTOMY", "CHOLECYSTECTOMY", "CESAREAN_SECTION", "TONSILLECTOMY"]
+    },
+    "timeStart": "2023-11-02T09:00:00Z",
+    "timeEnd": "2023-11-02T13:00:00Z",
+    "durationOfSurgery": 240,
+    "surgeryType": "HYSTERECTOMY"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Charlotte Miller",
+      "listOfPossibleSurgeries": ["CESAREAN_SECTION", "TONSILLECTOMY", "KNEE_REPLACEMENT"]
+    },
+    "patient": {
+      "mcpNumber": "345678901",
+      "name": "Michael Johnson",
+      "address": {
+        "houseNumber": 789,
+        "street": "Oak Avenue",
+        "city": "Big City",
+        "postalCode": "C7D 8E9"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 25,
+        "street": "Oak Street",
+        "city": "Capital City",
+        "postalCode": "34567"
+      },
+      "name": "County Hospital",
+      "listOfSurgeriesThatCanBeDone": ["KNEE_REPLACEMENT", "HIP_REPLACEMENT", "CORONARY_ARTERY_BYPASS_GRAFT", "ANGIOPLASTY"]
+    },
+    "timeStart": "2023-11-03T10:00:00Z",
+    "timeEnd": "2023-11-03T16:00:00Z",
+    "durationOfSurgery": 360,
+    "surgeryType": "KNEE_REPLACEMENT"
+  },
+  {
+    "doctor": {
+      "name": "Dr. David Kim",
+      "listOfPossibleSurgeries": ["HIP_REPLACEMENT", "CORONARY_ARTERY_BYPASS_GRAFT", "ANGIOPLASTY"]
+    },
+    "patient": {
+      "mcpNumber": "456789012",
+      "name": "Emily Davis",
+      "address": {
+        "houseNumber": 101,
+        "street": "Pine Road",
+        "city": "Quietville",
+        "postalCode": "F2G 3H4"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 77,
+        "street": "Pine Street",
+        "city": "Riverside",
+        "postalCode": "89012"
+      },
+      "name": "Community Hospital",
+      "listOfSurgeriesThatCanBeDone": ["MASTECTOMY", "LUMPECTOMY", "PROSTATECTOMY"]
+    },
+    "timeStart": "2023-11-04T11:00:00Z",
+    "timeEnd": "2023-11-04T14:00:00Z",
+    "durationOfSurgery": 180,
+    "surgeryType": "MASTECTOMY"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Emily Davis",
+      "listOfPossibleSurgeries": ["MASTECTOMY", "LUMPECTOMY", "PROSTATECTOMY"]
+    },
+    "patient": {
+      "mcpNumber": "567890123",
+      "name": "David Wilson",
+      "address": {
+        "houseNumber": 222,
+        "street": "Maple Lane",
+        "city": "Happyville",
+        "postalCode": "J5K 6L7"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 150,
+        "street": "Cedar Lane",
+        "city": "Lakeville",
+        "postalCode": "23456"
+      },
+      "name": "Regional Hospital",
+      "listOfSurgeriesThatCanBeDone": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR", "APPENDECTOMY", "HYSTERECTOMY"]
+    },
+    "timeStart": "2023-11-05T12:00:00Z",
+    "timeEnd": "2023-11-05T16:00:00Z",
+    "durationOfSurgery": 240,
+    "surgeryType": "ARTHROSCOPY"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Frank Wilson",
+      "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
+    },
+    "patient": {
+      "mcpNumber": "678901234",
+      "name": "Sarah Miller",
+      "address": {
+        "houseNumber": 333,
+        "street": "Cedar Drive",
+        "city": "Sunnydale",
+        "postalCode": "M8N 9P0"
+      }
+    },
+    "hospital": {
+      "address": {
+        "houseNumber": 55,
+        "street": "Elm Street",
+        "city": "Springfield",
+        "postalCode": "12345"
+      },
+      "name": "General Hospital",
+      "listOfSurgeriesThatCanBeDone": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR", "APPENDECTOMY"]
+    },
+    "timeStart": "2023-11-06T08:00:00Z",
+    "timeEnd": "2023-11-06T12:00:00Z",
+    "durationOfSurgery": 240,
+    "surgeryType": "HERNIA_REPAIR"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Grace Taylor",
+      "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
+    },
+    "patient": {
+      "mcpNumber": "789012345",
+      "name": "Robert Moore",
+      "address": {

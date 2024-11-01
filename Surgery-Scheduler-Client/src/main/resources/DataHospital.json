@@ -1,0 +1,52 @@
+[
+  {
+    "address": {
+      "houseNumber": 55,
+      "street": "Elm Street",
+      "city": "Springfield",
+      "postalCode": "12345"
+    },
+    "name": "General Hospital",
+    "listOfSurgeriesThatCanBeDone": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR", "APPENDECTOMY"]
+  },
+  {
+    "address": {
+      "houseNumber": 101,
+      "street": "Maple Avenue",
+      "city": "Shelbyville",
+      "postalCode": "67890"
+    },
+    "name": "City Hospital",
+    "listOfSurgeriesThatCanBeDone": ["HYSTERECTOMY", "CHOLECYSTECTOMY", "CESAREAN_SECTION", "TONSILLECTOMY"]
+  },
+  {
+    "address": {
+      "houseNumber": 25,
+      "street": "Oak Street",
+      "city": "Capital City",
+      "postalCode": "34567"
+    },
+    "name": "County Hospital",
+    "listOfSurgeriesThatCanBeDone": ["KNEE_REPLACEMENT", "HIP_REPLACEMENT", "CORONARY_ARTERY_BYPASS_GRAFT", "ANGIOPLASTY"]
+  },
+  {
+    "address": {
+      "houseNumber": 77,
+      "street": "Pine Street",
+      "city": "Riverside",
+      "postalCode": "89012"
+    },
+    "name": "Community Hospital",
+    "listOfSurgeriesThatCanBeDone": ["MASTECTOMY", "LUMPECTOMY", "PROSTATECTOMY"]
+  },
+  {
+    "address": {
+      "houseNumber": 150,
+      "street": "Cedar Lane",
+      "city": "Lakeville",
+      "postalCode": "23456"
+    },
+    "name": "Regional Hospital",
+    "listOfSurgeriesThatCanBeDone": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR", "APPENDECTOMY", "HYSTERECTOMY"]
+  }
+]
