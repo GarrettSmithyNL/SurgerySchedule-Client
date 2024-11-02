@@ -15,7 +15,8 @@ import java.util.Scanner;
 
 public class MenuSystem {
 
-    private RESTClient restClient;
+    private Gson gson = new Gson();
+    private RESTClient restClient = new RESTClient();
 
     public static void main(String[] args) {
         MenuSystem menu = new MenuSystem();
@@ -23,12 +24,11 @@ public class MenuSystem {
     }
 
     public void showMainMenu() {
-        restClient = new RESTClient();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\n--- Surgery Scheduler Menu ---");
-            System.out.println("1. View Surgeries by Hospital");
-            System.out.println("2. View Hospitals by City");
+            System.out.println("1. View Surgeries by Hospital and Date");
+            System.out.println("2. View Hospitals by Province/City");
             System.out.println("3. View Surgeries by Doctor");
             System.out.println("4. View Upcoming Surgery for a Patient");
             System.out.println("5. Search Available Doctors");
@@ -40,34 +40,22 @@ public class MenuSystem {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter Hospital ID: ");
-                    long hospitalId = scanner.nextLong();
-                    System.out.println(viewSurgeriesByHospitalAndDate(hospitalId));
+                    viewSurgeriesByHospitalAndDate();
                     break;
                 case 2:
-                    System.out.print("Enter City: ");
-                    String city = scanner.next();
-                    System.out.println(viewHospitalsByProvinceOrCity(city));
+                    viewHospitalsByProvinceOrCity();
                     break;
                 case 3:
-                    System.out.print("Enter Doctor ID: ");
-                    long doctorId = scanner.nextLong();
-                    System.out.println(viewSurgeriesByDoctor(doctorId));
+                    viewSurgeriesByDoctor();
                     break;
                 case 4:
-                    System.out.print("Enter Patient ID: ");
-                    long patientId = scanner.nextLong();
-                    System.out.println(viewUpcomingSurgeryForPatient(patientId));
+                    viewUpcomingSurgeryForPatient();
                     break;
                 case 5:
-                    System.out.print("Enter Surgery Type: ");
-                    String surgeryType = scanner.next();
-                    System.out.println(searchAvailableDoctors(surgeryType));
+                    searchAvailableDoctors();
                     break;
                 case 6:
-                    System.out.print("Enter Date (YYYY-MM-DD): ");
-                    String date = scanner.next();
-                    System.out.println(searchSurgeriesByTime(date));
+                    searchSurgeriesByTime();
                     break;
                 case 7:
                     System.out.println("Exiting...");
@@ -80,123 +68,186 @@ public class MenuSystem {
     }
 
     // 1. Method to fetch surgeries by hospital and date
-    public String viewSurgeriesByHospitalAndDate(long hospitalId) {
-        String results = "";
+    public void viewSurgeriesByHospitalAndDate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Hospital ID: ");
+        long hospitalId = scanner.nextLong();
+
         try {
             List<Surgery> surgeries = restClient.fetchSurgeriesByHospitalAndDate(hospitalId);
 
             if (surgeries.isEmpty()) {
-                results = "No surgeries found for this hospital.";
-            } else {
-                for (Surgery surgery : surgeries) {
-                    results += "Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart() + "\n";
-                }
+                System.out.println("No surgeries found for this hospital.");
+                return;
+            }
+
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
             }
         } catch (Exception e) {
-            results = "Error retrieving surgeries: " + e.getMessage();
+            System.out.println("Error retrieving surgeries: " + e.getMessage());
         }
-      return results;
+
     }
 
     // 2. Method to fetch hospitals by city
-    public String viewHospitalsByProvinceOrCity(String city) {
-        String results = "";
+    public void viewHospitalsByProvinceOrCity() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter City: ");
+        String city = scanner.next();
+
         try {
             List<Hospital> hospitals = restClient.fetchHospitalsByCity(city);
+
             if (hospitals.isEmpty()) {
-                results = "No hospitals found in this city.";
-            } else {
-                for (Hospital hospital : hospitals) {
-                    results += "Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName() + "\n";
-                }
+                System.out.println("No hospitals found in this city.");
+                return;
+            }
+
+            for (Hospital hospital : hospitals) {
+                System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
             }
         } catch (Exception e) {
-            results = "Error retrieving hospitals: " + e.getMessage();
+            System.out.println("Error retrieving hospitals: " + e.getMessage());
         }
-        return results;
     }
 
     // 3. Placeholder for surgeries by doctor
-    public String viewSurgeriesByDoctor(long doctorId) {
-        String results = "";
+    public void viewSurgeriesByDoctor() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Doctor ID: ");
+        long doctorId = scanner.nextLong();
+
         try {
             List<Surgery> surgeries = restClient.fetchSurgeriesByDoctor(doctorId);
 
             if (surgeries.isEmpty()) {
-                results = "No surgeries found for this doctor.";
-            } else {
-                for (Surgery surgery : surgeries) {
-                    results += "Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Hospital: " + surgery.getHospital().getName() + ", Date: " + surgery.getTimeStart() + "\n";
-                }
+                System.out.println("No surgeries found for this doctor.");
+                return;
+            }
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
             }
         } catch (Exception e) {
-            results = "Error retrieving surgeries by doctor: " + e.getMessage();
+            System.out.println("Error retrieving surgeries by doctor: " + e.getMessage());
         }
-        return results;
     }
     // 4. Placeholder for upcoming surgery by patient
-    public String viewUpcomingSurgeryForPatient(long patientId) {
-        String results = "";
+    public void viewUpcomingSurgeryForPatient() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Patient ID: ");
+        long patientId = scanner.nextLong();
+
         try {
             List<Surgery> surgeries = restClient.fetchUpcomingSurgeryForPatient(patientId);
+
             if (surgeries.isEmpty()) {
-                results = "No upcoming surgeries found for this patient.";
-            } else {
-                for (Surgery surgery : surgeries) {
-                    results += "Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart() + "\n";
-                }
+                System.out.println("No upcoming surgeries found for this patient.");
+                return;
             }
+            String jsonResponse = getApiResponse("/surgery/surgeries/patient/" + patientId + "/upcoming");
+            parseAndDisplaySurgeries(jsonResponse);
         } catch (Exception e) {
-            results = "Error retrieving upcoming surgery for patient: " + e.getMessage();
+            System.out.println("Error retrieving upcoming surgery for patient: " + e.getMessage());
         }
-        return results;
     }
 
     // 5. Method to search available doctors by surgery type
-    public String searchAvailableDoctors(String surgeryType) {
-        String results = "";
+    public void searchAvailableDoctors() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Surgery Type: ");
+        String surgeryType = scanner.next();
+
         try {
             List<Doctor> availableDoctors = restClient.fetchAvailableDoctors(surgeryType);
-            if (availableDoctors.isEmpty()) {
-                results = "No available doctors for this surgery type.";
-            } else {
-                for (Doctor doctor : availableDoctors) {
-                    results += "Doctor ID: " + doctor.getId() + ", Name: " + doctor.getName() + "\n";
-                }
-            }
+            displayDoctors(availableDoctors);
         } catch (Exception e) {
-            results = "Error retrieving available doctors: " + e.getMessage();
+            System.out.println("Error retrieving available doctors: " + e.getMessage());
         }
-        return results;
     }
 
     // 6. Placeholder for searching surgeries by time
-    public String searchSurgeriesByTime(String date) {
-        String results = "";
+    public void searchSurgeriesByTime() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Date (YYYY-MM-DD): ");
+        String date = scanner.next();
+
         try {
             List<Surgery> surgeries = restClient.fetchSurgeriesByDate(date);
             if (surgeries.isEmpty()) {
-                results = "No surgeries found for this date.";
-            } else {
-                for (Surgery surgery : surgeries) {
-                    results += "Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Hospital: " + surgery.getHospital().getName() + ", Date: " + surgery.getTimeStart() + "\n";
-                }
+                System.out.println("No surgeries found for this date.");
+                return;
+            }
+            for (Surgery surgery : surgeries) {
+                System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
             }
         } catch (Exception e) {
-            results = "Error retrieving surgeries by date: " + e.getMessage();
+            System.out.println("Error retrieving surgeries by date: " + e.getMessage());
         }
-        return results;
     }
 
-    public RESTClient getRestClient() {
-        if (restClient == null) {
-            restClient = new RESTClient();
+    // Helper method to make an API call
+    public String getApiResponse(String endpoint) throws Exception {
+        String baseUrl = "http://localhost:8080";
+        URL url = new URL(baseUrl + endpoint);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Accept", "application/json");
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
         }
-        return restClient;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+        StringBuilder response = new StringBuilder();
+        String output;
+        while ((output = br.readLine()) != null) {
+            response.append(output);
+        }
+        conn.disconnect();
+        return response.toString();
     }
 
-    public void setRestClient(RESTClient restClient) {
-        this.restClient = restClient;
+    // Generic method to parse JSON into a list of specified type
+    public <T> List<T> parseJsonResponse(String jsonResponse, Class<T> classType) {
+        return gson.fromJson(jsonResponse, TypeToken.getParameterized(List.class, classType).getType());
     }
+
+    // Parsing and displaying surgeries
+    private void parseAndDisplaySurgeries(String jsonResponse) {
+        List<Surgery> surgeries = parseJsonResponse(jsonResponse, Surgery.class);
+        if (surgeries.isEmpty()) {
+            System.out.println("No surgeries found.");
+            return;
+        }
+        for (Surgery surgery : surgeries) {
+            System.out.println("Surgery ID: " + surgery.getId() + ", Type: " + surgery.getTypeOfSurgery() + ", Date: " + surgery.getTimeStart());
+        }
+    }
+
+    // Parsing and displaying hospitals by city
+    private void parseAndDisplayHospitalsByCity(String jsonResponse) {
+        List<Hospital> hospitals = parseJsonResponse(jsonResponse, Hospital.class);
+        if (hospitals.isEmpty()) {
+            System.out.println("No hospitals found in this city.");
+            return;
+        }
+        for (Hospital hospital : hospitals) {
+            System.out.println("Hospital ID: " + hospital.getId() + ", Name: " + hospital.getName());
+        }
+    }
+
+    // Displaying doctor information
+    private void displayDoctors(List<Doctor> doctors) {
+        if (doctors.isEmpty()) {
+            System.out.println("No available doctors for this surgery type.");
+            return;
+        }
+        for (Doctor doctor : doctors) {
+            System.out.println("Doctor ID: " + doctor.getId() + ", Name: " + doctor.getName());
+        }
+    }
+
+
 }
 

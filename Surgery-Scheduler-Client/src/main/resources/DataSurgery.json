@@ -1,6 +1,6 @@
 [
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. Alice Johnson",
       "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
     },
@@ -27,10 +27,10 @@
     "timeStart": "2023-11-01T08:00:00Z",
     "timeEnd": "2023-11-01T12:00:00Z",
     "durationOfSurgery": 240,
-    "typeOfSurgery": "CATARACT"
+    "surgeryType": "CATARACT"
   },
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. Benjamin Lee",
       "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
     },
@@ -57,10 +57,10 @@
     "timeStart": "2023-11-02T09:00:00Z",
     "timeEnd": "2023-11-02T13:00:00Z",
     "durationOfSurgery": 240,
-    "typeOfSurgery": "HYSTERECTOMY"
+    "surgeryType": "HYSTERECTOMY"
   },
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. Charlotte Miller",
       "listOfPossibleSurgeries": ["CESAREAN_SECTION", "TONSILLECTOMY", "KNEE_REPLACEMENT"]
     },
@@ -87,10 +87,10 @@
     "timeStart": "2023-11-03T10:00:00Z",
     "timeEnd": "2023-11-03T16:00:00Z",
     "durationOfSurgery": 360,
-    "typeOfSurgery": "KNEE_REPLACEMENT"
+    "surgeryType": "KNEE_REPLACEMENT"
   },
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. David Kim",
       "listOfPossibleSurgeries": ["HIP_REPLACEMENT", "CORONARY_ARTERY_BYPASS_GRAFT", "ANGIOPLASTY"]
     },
@@ -117,10 +117,10 @@
     "timeStart": "2023-11-04T11:00:00Z",
     "timeEnd": "2023-11-04T14:00:00Z",
     "durationOfSurgery": 180,
-    "typeOfSurgery": "MASTECTOMY"
+    "surgeryType": "MASTECTOMY"
   },
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. Emily Davis",
       "listOfPossibleSurgeries": ["MASTECTOMY", "LUMPECTOMY", "PROSTATECTOMY"]
     },
@@ -136,7 +136,7 @@
     },
     "hospital": {
       "address": {
-        "houseNumber": 6,
+        "houseNumber": 150,
         "street": "Cedar Lane",
         "city": "Lakeville",
         "postalCode": "23456"
@@ -147,10 +147,10 @@
     "timeStart": "2023-11-05T12:00:00Z",
     "timeEnd": "2023-11-05T16:00:00Z",
     "durationOfSurgery": 240,
-    "typeOfSurgery": "ARTHROSCOPY"
+    "surgeryType": "ARTHROSCOPY"
   },
   {
-    "doctorDoingSurgery": {
+    "doctor": {
       "name": "Dr. Frank Wilson",
       "listOfPossibleSurgeries": ["CATARACT", "ARTHROSCOPY", "HERNIA_REPAIR"]
     },
@@ -177,6 +177,14 @@
     "timeStart": "2023-11-06T08:00:00Z",
     "timeEnd": "2023-11-06T12:00:00Z",
     "durationOfSurgery": 240,
-    "typeOfSurgery": "HERNIA_REPAIR"
-  }
-]
+    "surgeryType": "HERNIA_REPAIR"
+  },
+  {
+    "doctor": {
+      "name": "Dr. Grace Taylor",
+      "listOfPossibleSurgeries": ["APPENDECTOMY", "HYSTERECTOMY", "CHOLECYSTECTOMY"]
+    },
+    "patient": {
+      "mcpNumber": "789012345",
+      "name": "Robert Moore",
+      "address": {
